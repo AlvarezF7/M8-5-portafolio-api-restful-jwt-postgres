@@ -24,6 +24,7 @@ Esta es una API RESTful para un sistema de e-commerce  Go-Art que permite maneja
 - Carrito de compras con cálculo de subtotal, IVA y total.
 - Descuento temporal de stock en frontend al agregar al carrito.
 - Checkout seguro que actualiza el stock real y vacía el carrito.
+- Proyecto responsive.
 
 
 
@@ -58,6 +59,10 @@ Esta es una API RESTful para un sistema de e-commerce  Go-Art que permite maneja
 
 ## Notas
 - ⚠️ Si no se ejecuta el seeder, la aplicación mostrará productos vacíos.
+- Nombres sensibles a las mayusculas.
+- La base de datos a la quedebes conectarte es Mm8_portafolio.
+- Usuario de prueba Harry Potter contraseña : lumus.
+- Usuario de pruebas dos  Leonardo Davinci contraseña: italia.
 - Los endpoints que requieren token deben enviarlo en el header Authorization: Bearer <token>.
 
 

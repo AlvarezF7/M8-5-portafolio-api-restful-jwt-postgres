@@ -26,10 +26,8 @@ const addToCart = async (req, res) => {
     }
 
     const product = await Product.findByPk(productId);
-    if (!product) return res.status(404).json({ error: "Producto no encontrado" });
-
-    if (product.stock < quantity) {
-      return res.status(400).json({ error: "Stock insuficiente" });
+    if (!product) {
+      return res.status(404).json({ error: "Producto no encontrado" });
     }
 
     const existingItem = await CartItem.findOne({
@@ -37,23 +35,34 @@ const addToCart = async (req, res) => {
     });
 
     if (existingItem) {
-      existingItem.quantity += quantity;
+      const nuevaCantidad = existingItem.quantity + quantity;
+
+      // validar stock REAL
+      if (product.stock < nuevaCantidad) {
+        return res.status(400).json({ error: "Stock insuficiente" });
+      }
+
+      existingItem.quantity = nuevaCantidad;
       await existingItem.save();
+
     } else {
+      // validar stock inicial
+      if (product.stock < quantity) {
+        return res.status(400).json({ error: "Stock insuficiente" });
+      }
+
       await CartItem.create({
         user_id: req.userId,
         product_id: productId,
         quantity
       });
     }
- 
-    // se muestra en el frontend stock
-    product.stock -= quantity;
+
     res.status(201).json({
       message: "Producto agregado",
-      stock: product.stock
+       stock: product.stock
     });
-
+    console.log("BODY:", req.body);
   } catch (error) {
     console.error("Error en addToCart:", error);
     res.status(500).json({ error: "Error al agregar al carrito" });
@@ -73,6 +82,7 @@ const removeFromCart = async (req, res) => {
       return res.status(404).json({ error: "Producto no encontrado en carrito" });
     }
 
+    // para no duplicar stock
     await item.destroy();
 
     res.status(200).json({ message: "Producto eliminado" });
@@ -92,7 +102,7 @@ const checkout = async (req, res) => {
 
     const cartItems = await CartItem.findAll({
       where: { user_id: userId },
-      include: {model: Product, required: true},
+      include: { model: Product, required: true },
       transaction: t,
       lock: t.LOCK.UPDATE
     });
@@ -111,6 +121,7 @@ const checkout = async (req, res) => {
         throw new Error(`Stock insuficiente para ${product.name}`);
       }
 
+      // se descuenta stock 
       await product.update(
         { stock: product.stock - item.quantity },
         { transaction: t }
@@ -119,11 +130,11 @@ const checkout = async (req, res) => {
       productosResponse.push({
         name: product.name,
         quantity: item.quantity,
-        price: product.price
+        price: product.price,
+        subtotal: product.price * item.quantity // 🔥 importante para frontend
       });
     }
 
-    // vaciar carrito
     await CartItem.destroy({
       where: { user_id: userId },
       transaction: t
@@ -133,7 +144,8 @@ const checkout = async (req, res) => {
 
     res.status(200).json({
       id: Date.now(),
-      productos: productosResponse
+      productos: productosResponse,
+      total: productosResponse.reduce((acc, p) => acc + p.subtotal, 0)
     });
 
   } catch (error) {
@@ -146,4 +158,4 @@ const checkout = async (req, res) => {
   }
 };
 
-module.exports = {  getCart,  addToCart,  removeFromCart,  checkout};
+module.exports = { getCart, addToCart, removeFromCart, checkout };

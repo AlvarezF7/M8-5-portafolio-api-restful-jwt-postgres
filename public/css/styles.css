@@ -14,12 +14,17 @@
 
 .navbar .container-fluid {
   display: flex;
-  gap: 20px;
+  gap: 30px;
 }
 .navbar-nav {
   display: flex;
   gap: 20px;
 }
+#navBtn{
+  color:aliceblue;
+  font-weight: bold;
+}
+
 /* ----------- BANNER ---------- */
 #banner {
   background: linear-gradient(90deg, rgba(20,190,202,1), rgba(0,150,160,1));
@@ -51,13 +56,13 @@ main {
   padding: 10px;
   border:1px solid rgb(10,155,165);
   border-radius: 12px;
-  background: white;
+  background: rgb(255, 255, 255);
   transition: all 0.3s ease;
 }
 
 .cards:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 15px 30px rgba(0, 200, 200, 0.3);
+  box-shadow: 0 15px 35px rgba(0, 200, 200, 0.3);
 }
 
 /* Imagen */
@@ -95,13 +100,13 @@ main {
    border: solid 1px rgb(27, 156, 189);
 }
 #btnAgregar,#btnCompra,#btnDetalle, #createAcount, #btnCrearCta{
-  background: linear-gradient(90deg, rgb(40,172,172), rgb(20,140,140));
+  background: linear-gradient(90deg, rgba(66, 211, 211, 0.829), rgba(45, 161, 161, 0.849));
   border: none;
   color: white;
 }
 
 #btnAgregar:hover,#btnCompra:hover,#btnDetalle:hover , #createAcount:hover, #btnCrearCta:hover, #btnLogin:hover{
-  background: rgba(184, 236, 216, 0.795);
+  background: rgba(117, 226, 226, 0.918);
   color: rgb(3, 118, 133);
 }
 #btnIniciarSesion, #btnVolver, #btnCerrarSession{
@@ -111,7 +116,7 @@ main {
 }
 
 #btnIniciarSesion:hover, #btnVolver:hover, #btnCerrarSession:hover{
-    background: rgb(42, 139, 204);
+  background: rgb(42, 139, 204);
   color: rgb(171, 205, 243);
 }
 
@@ -124,7 +129,7 @@ main {
   font-style: italic;
   padding: 1rem;
   gap: 0.5rem;
-   background: linear-gradient(90deg, rgba(20,190,202,1), rgba(0,150,160,1));
+  background: linear-gradient(90deg, rgba(20,190,202,1), rgba(0,150,160,1));
 }
 .foo p {
   color: rgb(236, 255, 254);
@@ -172,7 +177,7 @@ main {
 
 /*------- OFFCANVAS ----------- */
 #containerCarrito {
-  color: rgb(4, 41, 161);
+  color: rgb(1, 34, 145);
   font-family: 'Poppins', sans-serif;
 }
 
@@ -194,7 +199,6 @@ main {
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  background-color: aquamarine;
 }
 .imgBanner {
   width: 90%;
