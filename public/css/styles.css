@@ -12,10 +12,17 @@
   padding: 10px;
 }
 
-.navbar .container-fluid {
+.navbar, .container-fluid {
   display: flex;
   gap: 30px;
 }
+
+
+
+.navbar-nav >a, #brand{
+  color:aliceblue;
+  font-weight: bold;
+} 
 .navbar-nav {
   display: flex;
   gap: 20px;
