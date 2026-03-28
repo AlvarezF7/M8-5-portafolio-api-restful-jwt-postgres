@@ -15,7 +15,7 @@ Esta es una API RESTful para un sistema de e-commerce  Go-Art que permite maneja
 - Bootstrap (frontend)
 
 ## Estructura Proyecto
-![Texto alternativo](     )
+![Texto alternativo](https://github.com/AlvarezF7/M8-5-portafolio-api-restful-jwt-postgres/blob/main/public/img/estructura-proyecto.png)
 
 
 ## Funcionalidades
